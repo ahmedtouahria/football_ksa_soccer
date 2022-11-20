@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=50, blank=True, null=True)
     email=models.EmailField(blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
-    image = models.ImageField(upload_to="images/", blank=True, null=True)
+    image = models.ImageField(upload_to="user", blank=True, null=True)
     first_login = models.BooleanField(default=False)
     otp = models.CharField(max_length=9, blank=True, null=True)
     verified = models.BooleanField(default=False, help_text='If otp verification got successful')

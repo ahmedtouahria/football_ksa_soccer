@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'account',
     'arbitre',
     'stadium',
+    'club'
 
 ]
 
