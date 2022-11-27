@@ -3,7 +3,12 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 # Create your models here.
 class Capitan(models.Model):
-    user = models.ForeignKey("account.User", verbose_name=_("user reference"), on_delete=models.CASCADE,related_name="capitan_user")
+    user = models.OneToOneField("account.User", verbose_name=_("user reference"), on_delete=models.CASCADE,related_name="capitan_user")
+    def save(self, *args, **kwargs):
+       if not self.user.capitan:
+        self.user.capitan=True
+        self.user.save()
+       super(Capitan, self).save(*args, **kwargs) # Call the real save() method
     def __str__(self):
         return str(self.user.username)
 class StadiumOwner(models.Model):
@@ -47,9 +52,26 @@ class Match(models.Model):
     score_one = models.PositiveIntegerField(_("Score clube one"),default=0)
     score_two = models.PositiveIntegerField(_("Score clube two"),default=0)
     state = models.CharField(_("State"), max_length=100)
-
+    arbitre = models.ForeignKey("arbitre.Arbitre", verbose_name=_("Arbitre"), on_delete=models.SET_NULL,null=True,blank=True)
+    finished = models.BooleanField(_("match finished"),default=False)
     def __str__(self):
         return f"{self.clube_one.name} vs {self.clube_two.name}" if self.clube_one and self.clube_two else str(self.id)
+
+class GoalMatch(models.Model):
+    player=models.ForeignKey("club.player", verbose_name=_("player"), on_delete=models.CASCADE)
+    is_penalty = models.BooleanField(_("penalty"),default=False)
+    match = models.ForeignKey("club.Match", verbose_name=_("match"), on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.player} set goal"
+class MatchCard(models.Model):
+    CARD_CHOICES = (('red','red'),('yellow','yellow'))
+    match = models.ForeignKey("club.match", verbose_name=_(
+        "match"), on_delete=models.SET_NULL,related_name="cards_match",null=True)
+    card = models.CharField(_("card"),choices=CARD_CHOICES, max_length=50)
+    player=models.ForeignKey("club.player", verbose_name=_("player"), on_delete=models.CASCADE,related_name="player_card")
+    def __str__(self):
+        return f"{self.card} to {self.player.user.username}"
+
 
 class ClubePlayer(models.Model):
     player=models.ForeignKey("club.player", verbose_name=_("user"), on_delete=models.CASCADE,related_name="player")
