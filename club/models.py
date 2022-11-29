@@ -12,7 +12,7 @@ class Capitan(models.Model):
     def __str__(self):
         return str(self.user.username)
 class StadiumOwner(models.Model):
-    user = models.ForeignKey("account.User", verbose_name=_("user reference"), on_delete=models.CASCADE,related_name="owner")
+    user = models.OneToOneField("account.User", verbose_name=_("user reference"), on_delete=models.CASCADE,related_name="owner")
     stadium_number = models.PositiveIntegerField(_("Number of stadium"),default=0)
     def __str__(self):
         return str(self.user.username)
@@ -41,6 +41,8 @@ class Stadium(models.Model):
     localisation = models.CharField(_("localisation"), max_length=100)
     price = models.FloatField(_("price"),default=0)
     promo_price = models.FloatField(_("Promo price"),null=True)
+    state=models.CharField(_("state"), max_length=120,null=True)
+    image = models.ImageField(_("image"), upload_to="stadium",null=True,blank=True)
     def __str__(self):
         return self.name
 class Match(models.Model):

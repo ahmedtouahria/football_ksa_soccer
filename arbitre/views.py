@@ -20,8 +20,6 @@ class ListMatchs(generics.ListCreateAPIView):
     authentication_classes=[TokenAuthentication]
     def post(self, request, *args, **kwargs):
         return Response({"method not allowed !"})
-
-
 class SendOrderMatch(generics.ListCreateAPIView):
     serializer_class = SendMatchOrderSerializer
     #permission_classes = [IsArbitre,]
