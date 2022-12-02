@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_ui.apps.SimpleApp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +29,8 @@ INSTALLED_APPS = [
     #Third party app
     'rest_framework',
     'knox',
+    'constance',
+
     #my apps
     'account',
     'arbitre',
@@ -35,7 +38,55 @@ INSTALLED_APPS = [
     'club'
 
 ]
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
+CONSTANCE_ADDITIONAL_FIELDS = {
+    'image_field': ['django.forms.ImageField', {}],
+    'api_field': ['django.forms.JSONField', {
+    }],
+    'email_field': ['django.forms.EmailField', {}],
+}
+
+CONSTANCE_CONFIG = {
+    'LOGO': ('default.png', 'logo ', 'image_field'),
+    'FAV_ICON': ('default.png', 'fav logo ', 'image_field'),
+    'LOGO_NIGHT': ('default.png', 'logo mode sombre ', 'image_field'),
+    'frequence': (19850, 'la fréquence  alhayat tv '),
+    'code': (27500, 'code alhayat tv '),
+    'direction': ('عمودي', 'la direction'),
+    'satellite': ('نايل سات', 'la satellite '),
+    'primary_color': ('#eee', 'colour '),
+    'VISITORS':(0,'visitor'),
+    'LIVE':('0','live video'),
+    'about':('','من نحن'),
+    'Google_analytics_id': ('12345678', "l'identifiant de la vue analytics"),
+    'Google_analytics_tag': ('UA-xxxxxxxx-1', "Tag de la balise"),
+    'Google_analytics_credentials': ('{json}', "Votre clés d'API", 'api_field'),
+    'RECAPTCHA_PRIVATE_KEY': ('', "your reCAPTCHA private key"),
+    'RECAPTCHA_PUBLIC_KEY': ('', "your reCAPTCHA public key"),
+    'facebook_url': ('', "lien de facebook"),
+    'instagram_url': ('', "lien de instagram"),
+    'youtube_url': ('', "lien de youtube"),
+    'twitter_url': ('', "lien de twitter"),
+    'SEO_HOME_DESCRIPTION': ('', "SEO_HOME_DESCRIPTION"),
+    'SITE_URL': ('', "SITE_URL"),
+    'SITE_FR_URL': ('', "SITE_FR_URL"),
+    'SITE_NAME': ('', "SITE_NAME"),
+    'TWITTER_SITE': ('', "TWITTER_SITE"),
+    'CONTACT_MAIL': ('', "CONTACT_MAIL"),
+    'CONTACT_PHONE': ('', "CONTACT_PHONE"),
+
+}
+CONSTANCE_CONFIG_FIELDSETS = {
+    'Informations génerales': ('LOGO','LOGO_NIGHT','FAV_ICON','VISITORS', 'LIVE', 'about','primary_color', 'SITE_FR_URL','CONTACT_PHONE','CONTACT_MAIL'),
+    'Services Google': ('Google_analytics_tag', 'Google_analytics_id', 'Google_analytics_credentials', 'RECAPTCHA_PUBLIC_KEY','RECAPTCHA_PRIVATE_KEY'),
+    'fréquence': ('frequence','code','direction','satellite'),
+    'résaux sociale': ('facebook_url','instagram_url','twitter_url','youtube_url'),
+    'seo': ('SITE_NAME','SEO_HOME_DESCRIPTION','SITE_URL','TWITTER_SITE'),
+
+
+
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

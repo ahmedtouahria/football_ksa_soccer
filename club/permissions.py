@@ -1,7 +1,7 @@
 from rest_framework import permissions
 from rest_framework.response import Response
 
-SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
+SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS','POST')
 """Custom permission for stadium owner or read only"""
 class IsClubeCapitanOrReadOnly(permissions.BasePermission):
     """custom permission for is clube capitan or read only """
