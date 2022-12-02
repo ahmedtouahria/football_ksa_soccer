@@ -4,6 +4,7 @@ from rest_framework.response import Response
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
 """Custom permission for stadium owner or read only"""
 class IsStadiumOwnerOrReadOnly(permissions.BasePermission):
+    """custom permission for is stadium owner or read only """
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True

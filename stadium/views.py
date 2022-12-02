@@ -14,6 +14,9 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.decorators import api_view,action
 
 class ListMyStadium(viewsets.ModelViewSet):
+    """
+    this class display my stadiums list to stadium owner
+    """
     serializer_class = StadiumSerializer
     permission_classes = [IsStadiumOwnerOrReadOnly]
     def get_queryset(self):

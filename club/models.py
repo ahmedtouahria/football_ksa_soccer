@@ -27,11 +27,11 @@ class Player(models.Model):
 class Clube(models.Model):
     name = models.CharField(_("clube name"), max_length=150)
     capitan = models.OneToOneField("club.Capitan", verbose_name=_("clube leader"), on_delete=models.SET_NULL,null=True)
-    active = models.BooleanField(_("Subscription active"))
+    active = models.BooleanField(_("Subscription active"),default=False)
     date_created = models.DateTimeField(_("Date Created"), default=timezone.now)
     goals_count = models.PositiveIntegerField(_("Goals number"),default=0)
     match_number = models.PositiveIntegerField(_("Matchs number"),default=0)
-    logo = models.ImageField(_("Clube logo"), upload_to="clube_logo")
+    logo = models.ImageField(_("Clube logo"), upload_to="clube_logo",null=True)
     def __str__(self):
         return self.name
 
