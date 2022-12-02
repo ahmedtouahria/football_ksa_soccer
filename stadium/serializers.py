@@ -21,9 +21,8 @@ class CreatedBySerializer(serializers.ModelSerializer):
         fields=['user',]
 
 class StadiumOrderSerializer(serializers.ModelSerializer):
-    #owner = serializers.PrimaryKeyRelatedField(read_only=True)
     stadium = StadiumSerializer()
     created_by=CreatedBySerializer()
     class Meta:
         model = OrderStadium
-        fields = ['match','created_by','status','stadium']
+        fields = ['id','match','created_by','status','stadium']
