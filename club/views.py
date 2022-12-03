@@ -19,7 +19,7 @@ class ClubeViewSet(viewsets.ModelViewSet):
     """
     serializer_class = ClubeSerializer
     permission_classes = [IsAuthenticated,IsClubeCapitanOrReadOnly]
-    queryset= Clube.objects.all()
+    queryset= Clube.objects.filter(active=True)
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -30,7 +30,15 @@ class ClubeViewSet(viewsets.ModelViewSet):
             return Response({"message":_("You are now a player and you cannot create a club until you unjoin your club !")},status=status.HTTP_406_NOT_ACCEPTABLE)
         Clube.objects.create(capitan=created_capitan,name=request.data.get('name'),logo=request.data.get('logo',None))
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-""" My Clube Memeber 'crud actions' /api/clube/my_clube_members/  """
+
+class MyClubePlayersViewSet(viewsets.ModelViewSet):
+    """ My Clube Memeber 'crud actions' /api/clube/my_clube_members/  """
+    serializer_class = ClubePlayerSerializer
+    permission_classes = [IsCapitanOrReadOnlyClubeMembers]
+    def get_queryset(self):
+        queryset=ClubePlayer.objects.filter(clube__capitan__user=self.request.user)
+        return queryset
+    
 
 """Invite player to join my club /api/clube/invite_player/ """
 

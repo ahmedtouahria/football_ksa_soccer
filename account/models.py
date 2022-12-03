@@ -45,7 +45,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Up to 15 digits allowed.")
     phone = models.CharField(validators=[phone_regex], max_length=15, unique=True)
-    username = models.CharField(max_length=50, blank=True, null=True)
+    username = models.CharField(max_length=50, unique=True)
     email=models.EmailField(blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(upload_to="user", blank=True, null=True)
@@ -67,7 +67,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = []
     objects = UserManager()
     def __str__(self):
-        return self.phone
+        return self.username
 
     def get_full_name(self):
         return self.fname + " " + self.lname

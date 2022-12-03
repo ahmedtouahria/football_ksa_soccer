@@ -77,7 +77,7 @@ class MatchCard(models.Model):
 
 class ClubePlayer(models.Model):
     player=models.ForeignKey("club.player", verbose_name=_("user"), on_delete=models.CASCADE,related_name="player")
-    clube = models.ForeignKey("club.Clube", verbose_name=_(""), on_delete=models.CASCADE)
+    clube = models.ForeignKey("club.Clube", verbose_name=_("clube"), on_delete=models.CASCADE)
     position = models.PositiveSmallIntegerField(_("position"),null=True)
     goals = models.PositiveIntegerField(_("Goals number"),default=0)
     def __str__(self):

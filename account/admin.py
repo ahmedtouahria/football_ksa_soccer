@@ -9,18 +9,13 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('id','username', 'phone','state','otp','count')
     list_filter = ('arbitre','stadium_owner' ,'admin','capitan' )
     fieldsets = (
-        (None, {'fields': ('phone', 'password')}),
+        (None, {'fields': ('phone', 'password',)}),
         ('Personal info', {'fields': ('username', 'state',)}),
         ('Permissions', {'fields': ('admin','arbitre','stadium_owner','capitan')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('phone','otp')}
-        ),
-    )
+
     search_fields = ('phone','username')
     ordering = ('phone','username')
     filter_horizontal = ()
