@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'constance',
+    'constance.backends.database',
 
     #my apps
     'account',
@@ -52,12 +53,11 @@ CONSTANCE_CONFIG = {
     'LOGO': ('default.png', 'logo ', 'image_field'),
     'FAV_ICON': ('default.png', 'fav logo ', 'image_field'),
     'LOGO_NIGHT': ('default.png', 'logo mode sombre ', 'image_field'),
-    'frequence': (19850, 'la fréquence  alhayat tv '),
-    'code': (27500, 'code alhayat tv '),
+    'header_title': ("your title", 'lheader title '),
+    'principale_screen': ('default.png', 'principale screen shot ', 'image_field'),
     'direction': ('عمودي', 'la direction'),
     'satellite': ('نايل سات', 'la satellite '),
     'primary_color': ('#eee', 'colour '),
-    'VISITORS':(0,'visitor'),
     'LIVE':('0','live video'),
     'about':('','من نحن'),
     'Google_analytics_id': ('12345678', "l'identifiant de la vue analytics"),
@@ -79,9 +79,9 @@ CONSTANCE_CONFIG = {
 
 }
 CONSTANCE_CONFIG_FIELDSETS = {
-    'Informations génerales': ('LOGO','LOGO_NIGHT','FAV_ICON','VISITORS', 'LIVE', 'about','primary_color', 'SITE_FR_URL','CONTACT_PHONE','CONTACT_MAIL'),
+    'Informations génerales': ('LOGO','LOGO_NIGHT','FAV_ICON','header_title', 'LIVE', 'about','primary_color', 'SITE_FR_URL','CONTACT_PHONE','CONTACT_MAIL'),
     'Services Google': ('Google_analytics_tag', 'Google_analytics_id', 'Google_analytics_credentials', 'RECAPTCHA_PUBLIC_KEY','RECAPTCHA_PRIVATE_KEY'),
-    'fréquence': ('frequence','code','direction','satellite'),
+    'fréquence': ('principale_screen','direction','satellite'),
     'résaux sociale': ('facebook_url','instagram_url','twitter_url','youtube_url'),
     'seo': ('SITE_NAME','SEO_HOME_DESCRIPTION','SITE_URL','TWITTER_SITE'),
 
@@ -163,7 +163,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'football/static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, '') # 'data' is my media folder
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 'data' is my media folder
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
