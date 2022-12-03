@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'account',
     'arbitre',
     'stadium',
-    'club'
+    'club',
+    'landing'
 
 ]
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
@@ -102,7 +103,7 @@ ROOT_URLCONF = 'football.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -161,7 +162,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'news_app/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'football/static')]
 MEDIA_ROOT = os.path.join(BASE_DIR, '') # 'data' is my media folder
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
